@@ -572,6 +572,29 @@ UIKitCore`-[UIRefreshControl _addInsetHeight:]:
 
 https://github.com/nst/iOS-Runtime-Headers/blob/master/PrivateFrameworks/UIKitCore.framework/_UIScrollViewRefreshControlHost.h
 
+## Stack traces
+
+### incrementInsetHeight:
+
+```
+UIKitCore`-[_UIScrollViewRefreshControlHost incrementInsetHeight:]:
+->  0x185451964 <+0>:  sub    sp, sp, #0x30
+    0x185451968 <+4>:  stp    d9, d8, [sp, #0x10]
+    0x18545196c <+8>:  stp    x29, x30, [sp, #0x20]
+    0x185451970 <+12>: add    x29, sp, #0x20
+    0x185451974 <+16>: fmov   d8, d0
+    0x185451978 <+20>: add    x0, x0, #0x8
+    0x18545197c <+24>: bl     0x18617d504               ; symbol stub for: objc_loadWeakRetained
+    0x185451980 <+28>: str    x0, [sp, #0x8]
+    0x185451984 <+32>: fmov   d0, d8
+    0x185451988 <+36>: bl     0x186853920               ; objc_msgSend$_addRefreshInset:
+    0x18545198c <+40>: ldr    x0, [sp, #0x8]
+    0x185451990 <+44>: ldp    x29, x30, [sp, #0x20]
+    0x185451994 <+48>: ldp    d9, d8, [sp, #0x10]
+    0x185451998 <+52>: add    sp, sp, #0x30
+    0x18545199c <+56>: b      0x18617d588               ; symbol stub for: objc_release
+```
+
 # _UIRefreshControlContentView
 
 Legacy Content View
@@ -764,3 +787,50 @@ UIKitCore`-[UIScrollView _systemContentInset]:
 
 ### _systemContentInsetIncludingAccessories
 
+### _addRefreshInset:
+
+```
+UIKitCore`-[UIScrollView _addRefreshInset:]:
+->  0x186037e7c <+0>:   stp    d11, d10, [sp, #-0x40]!
+    0x186037e80 <+4>:   stp    d9, d8, [sp, #0x10]
+    0x186037e84 <+8>:   stp    x20, x19, [sp, #0x20]
+    0x186037e88 <+12>:  stp    x29, x30, [sp, #0x30]
+    0x186037e8c <+16>:  add    x29, sp, #0x30
+    0x186037e90 <+20>:  fmov   d10, d0
+    0x186037e94 <+24>:  mov    x19, x0
+    0x186037e98 <+28>:  bl     0x186916f00               ; objc_msgSend$contentOffset
+    0x186037e9c <+32>:  fmov   d8, d0
+    0x186037ea0 <+36>:  fmov   d9, d1
+    0x186037ea4 <+40>:  mov    x0, #0x2                  ; =2 
+    0x186037ea8 <+44>:  movk   x0, #0xd, lsl #48
+    0x186037eac <+48>:  bl     0x18617cf7c               ; symbol stub for: dyld_program_sdk_at_least
+    0x186037eb0 <+52>:  cbz    w0, 0x186037ec8           ; <+76>
+    0x186037eb4 <+56>:  adrp   x8, 434038
+    0x186037eb8 <+60>:  ldrsw  x8, [x8, #0xb34]
+    0x186037ebc <+64>:  ldr    x8, [x19, x8]
+    0x186037ec0 <+68>:  cmp    x8, #0x2
+    0x186037ec4 <+72>:  b.ne   0x186037ee0               ; <+100>
+    0x186037ec8 <+76>:  mov    x0, x19
+    0x186037ecc <+80>:  bl     0x186916d20               ; objc_msgSend$contentInset
+    0x186037ed0 <+84>:  fadd   d0, d0, d10
+    0x186037ed4 <+88>:  mov    x0, x19
+    0x186037ed8 <+92>:  bl     0x1869a8400               ; objc_msgSend$setContentInset:
+    0x186037edc <+96>:  b      0x186037f04               ; <+136>
+    0x186037ee0 <+100>: adrp   x8, 434038
+    0x186037ee4 <+104>: ldrsw  x8, [x8, #0xcf8]
+    0x186037ee8 <+108>: ldr    d0, [x19, x8]
+    0x186037eec <+112>: fadd   d0, d0, d10
+    0x186037ef0 <+116>: str    d0, [x19, x8]
+    0x186037ef4 <+120>: mov    x0, x19
+    0x186037ef8 <+124>: bl     0x1868e2e40               ; objc_msgSend$_updateForChangedScrollRelatedInsets
+    0x186037efc <+128>: mov    x0, x19
+    0x186037f00 <+132>: bl     0x1868e2e20               ; objc_msgSend$_updateForChangedScrollIndicatorRelatedInsets
+    0x186037f04 <+136>: mov    x0, x19
+    0x186037f08 <+140>: fmov   d0, d8
+    0x186037f0c <+144>: fmov   d1, d9
+    0x186037f10 <+148>: ldp    x29, x30, [sp, #0x30]
+    0x186037f14 <+152>: ldp    x20, x19, [sp, #0x20]
+    0x186037f18 <+156>: ldp    d9, d8, [sp, #0x10]
+    0x186037f1c <+160>: ldp    d11, d10, [sp], #0x40
+    0x186037f20 <+164>: b      0x1869a85a0               ; objc_msgSend$setContentOffset:
+```
